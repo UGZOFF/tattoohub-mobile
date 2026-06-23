@@ -4,10 +4,8 @@
     "slug": "tattoohub",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#F5F3EF"
     },
@@ -21,6 +19,9 @@
         "NSPhotoLibraryAddUsageDescription": "TattooHub sauvegarde vos photos de tatouages."
       }
     },
+    "android": {
+      "package": "fr.tattoohub.app"
+    },
     "plugins": [
       "expo-router",
       "expo-notifications",
@@ -29,7 +30,7 @@
       }]
     ],
     "extra": {
-      "eas": { "projectId": "EXPO_PROJECT_ID" },
+      "eas": { "projectId": "tattoohub" },
       "router": { "origin": false }
     },
     "scheme": "tattoohub"
