@@ -1,0 +1,28 @@
+{
+  "cli": { "version": ">= 12.0.0" },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": { "simulator": false }
+    },
+    "production": {
+      "ios": {
+        "buildConfiguration": "Release",
+        "bundleIdentifier": "fr.tattoohub.app"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "contact@tattoohub.fr",
+        "ascAppId": "APPLE_APP_STORE_CONNECT_ID",
+        "appleTeamId": "APPLE_TEAM_ID"
+      }
+    }
+  }
+}
