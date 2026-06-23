@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "TattooHub",
+    "slug": "tattoohub",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F5F3EF"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "fr.tattoohub.app",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "TattooHub utilise la caméra pour prendre des photos de référence.",
+        "NSPhotoLibraryUsageDescription": "TattooHub accède à vos photos pour votre portfolio et références.",
+        "NSPhotoLibraryAddUsageDescription": "TattooHub sauvegarde vos photos de tatouages."
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-notifications",
+      ["expo-image-picker", {
+        "photosPermission": "TattooHub accède à vos photos pour votre portfolio."
+      }]
+    ],
+    "extra": {
+      "eas": { "projectId": "EXPO_PROJECT_ID" },
+      "router": { "origin": false }
+    },
+    "scheme": "tattoohub"
+  }
+}
