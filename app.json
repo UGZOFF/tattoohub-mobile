@@ -5,6 +5,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
+    "newArchEnabled": false,
+    "jsEngine": "hermes",
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#F5F3EF"
@@ -14,23 +16,24 @@
       "bundleIdentifier": "fr.tattoohub.app",
       "buildNumber": "1",
       "infoPlist": {
-        "NSCameraUsageDescription": "TattooHub utilise la caméra pour prendre des photos de référence.",
-        "NSPhotoLibraryUsageDescription": "TattooHub accède à vos photos pour votre portfolio et références.",
+        "NSCameraUsageDescription": "TattooHub utilise la camera pour prendre des photos de reference.",
+        "NSPhotoLibraryUsageDescription": "TattooHub accede a vos photos pour votre portfolio.",
         "NSPhotoLibraryAddUsageDescription": "TattooHub sauvegarde vos photos de tatouages."
       }
     },
     "android": {
-      "package": "fr.tattoohub.app"
+      "package": "fr.tattoohub.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#F5F3EF"
+      }
     },
     "plugins": [
       "expo-router",
-      "expo-notifications",
       ["expo-image-picker", {
-        "photosPermission": "TattooHub accède à vos photos pour votre portfolio."
+        "photosPermission": "TattooHub accede a vos photos pour votre portfolio."
       }]
     ],
     "extra": {
-      "eas": { "projectId": "tattoohub" },
       "router": { "origin": false }
     },
     "scheme": "tattoohub"
