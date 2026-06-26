@@ -1,6 +1,6 @@
-import { create } from 'zustand'
-import { supabase, Profile } from '../lib/supabase'
-import { Session } from '@supabase/supabase-js'
+import { create } from "zustand"
+import { supabase, Profile } from "../lib/supabase"
+import { Session } from "@supabase/supabase-js"
 
 interface AuthState {
   session: Session | null
@@ -19,45 +19,56 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   isLoading: true,
 
   sendOtp: async (email) => {
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { shouldCreateUser: true },
-    })
-    return { error: error?.message ?? null }
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { shouldCreateUser: true },
+      })
+      return { error: error?.message ?? null }
+    } catch (e: any) {
+      return { error: e?.message ?? "Erreur réseau" }
+    }
   },
 
   verifyOtp: async (email, token) => {
-    const { data, error } = await supabase.auth.verifyOtp({
-      email, token, type: 'email',
-    })
-    if (data.session) {
-      set({ session: data.session })
-      await get().loadProfile()
+    try {
+      const { data, error } = await supabase.auth.verifyOtp({
+        email, token, type: "email",
+      })
+      if (data?.session) {
+        set({ session: data.session })
+        await get().loadProfile()
+      }
+      return { error: error?.message ?? null }
+    } catch (e: any) {
+      return { error: e?.message ?? "Erreur réseau" }
     }
-    return { error: error?.message ?? null }
   },
 
   loadProfile: async () => {
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session) { set({ isLoading: false }); return }
-    set({ session })
-    const { data } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', session.user.id)
-      .single()
-    set({ profile: data, isLoading: false })
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) { set({ isLoading: false }); return }
+      set({ session })
+      const { data } = await supabase.from("profiles").select("*").eq("id", session.user.id).single()
+      set({ profile: data, isLoading: false })
+    } catch (e) {
+      set({ isLoading: false })
+    }
   },
 
   updateProfile: async (updates) => {
-    const { data: { session } } = await supabase.auth.getSession()
-    if (!session) return { error: 'Non connecté' }
-    const { error } = await supabase
-      .from('profiles')
-      .update({ ...updates, updated_at: new Date().toISOString() })
-      .eq('id', session.user.id)
-    if (!error) set(state => ({ profile: state.profile ? { ...state.profile, ...updates } : null }))
-    return { error: error?.message ?? null }
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) return { error: "Non connecté" }
+      const { error } = await supabase.from("profiles")
+        .update({ ...updates, updated_at: new Date().toISOString() })
+        .eq("id", session.user.id)
+      if (!error) set(state => ({ profile: state.profile ? { ...state.profile, ...updates } : null }))
+      return { error: error?.message ?? null }
+    } catch (e: any) {
+      return { error: e?.message ?? "Erreur" }
+    }
   },
 
   signOut: async () => {
